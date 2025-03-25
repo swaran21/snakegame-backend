@@ -31,6 +31,7 @@ func main() {
 	{
 		api.POST("/login", controllers.Login)
 		api.POST("/updateScore", controllers.UpdateScore)
+		api.GET("/topScores", controllers.GetTopScores) // New endpoint for top scores
 	}
 
 	// Run server on port 8080

@@ -62,3 +62,17 @@ func UpdateScore(c *gin.Context) {
 		"highScore": user.HighScore,
 	})
 }
+
+// GetTopScores returns the top 10 users sorted by high score descending.
+func GetTopScores(c *gin.Context) {
+	var users []models.User
+	result := db.DB.Order("high_score desc").Limit(10).Find(&users)
+	if result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Unable to fetch top scores"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"topScores": users,
+	})
+}
